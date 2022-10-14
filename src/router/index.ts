@@ -1,12 +1,19 @@
 import { createWebHistory, RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
-//import Layout from '@/layouts/default/index.vue'
+import Layout from '@/layouts/default/index.vue'
 import { createRouter } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('@/views/index.vue')
+    component: Layout,
+    children: [
+      {
+        path: '/index',
+        name: 'index',
+        component: () => import('@/views/index.vue')
+      }
+    ]
   }
 ]
 

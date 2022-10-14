@@ -1,45 +1,44 @@
 <template>
   <svg :class="[$attrs.class, spin && 'svg-icon-spin']" :style="getStyle" aria-hidden="true">
-    <use :xlink:href="symbolId" />
+    <use :href="symbolId" :fill="color" />
   </svg>
 </template>
 
-<script lang="ts">
-import type { CSSProperties } from 'vue'
-export default defineComponent({
-  name: 'SvgIcon',
-  props: {
-    prefix: {
-      type: String,
-      default: 'icon'
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    size: {
-      type: [Number, String],
-      default: 16
-    },
-    spin: {
-      type: Boolean,
-      default: false
-    }
+<script setup lang="ts">
+import type { ComputedRef, CSSProperties } from 'vue'
+
+import { useAppStore } from '@/store/modules/app'
+const store = useAppStore()
+const props = defineProps({
+  prefix: {
+    type: String,
+    default: 'icon'
   },
-  setup(props) {
-    const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+  name: {
+    type: String,
+    required: true
+  },
+  size: {
+    type: [Number, String],
+    default: 16
+  },
+  spin: {
+    type: Boolean,
+    default: false
+  }
+})
 
-    const getStyle = computed((): CSSProperties => {
-      const { size } = props
-      let s = `${size}`
-      s = `${s.replace('px', '')}px`
-      return {
-        width: s,
-        height: s
-      }
-    })
+const color: ComputedRef<string> = computed((): string => store.getPrimary)
 
-    return { getStyle, symbolId }
+const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+
+const getStyle = computed((): CSSProperties => {
+  const { size } = props
+  let s = `${size}`
+  s = `${s.replace('px', '')}px`
+  return {
+    width: s,
+    height: s
   }
 })
 </script>

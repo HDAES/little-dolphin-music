@@ -6,7 +6,7 @@ const { primary, language } = useGlobalStorage()
 export const useAppStore = defineStore({
   id: 'App',
   state: () => ({
-    primary: undefined,
+    primary,
     language: undefined
   }),
   getters: {

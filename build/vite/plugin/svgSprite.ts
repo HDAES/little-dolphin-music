@@ -9,10 +9,11 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
 export function configSvgIconsPlugin(isBuild: boolean) {
-  const svgIconsPlugin = createSvgIconsPlugin({
+  return createSvgIconsPlugin({
     iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
     svgoOptions: isBuild,
-    symbolId: 'icon-[dir]-[name]'
+    symbolId: 'icon-[dir]-[name]',
+    inject: 'body-last',
+    customDomId: '__svg__icons__dom__'
   })
-  return svgIconsPlugin
 }

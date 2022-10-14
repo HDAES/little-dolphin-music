@@ -35,7 +35,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/styles/element/index.scss" as *;`,
+          additionalData: `@use "@/styles/element/index.scss" as *; @use "@/styles/main.scss" as *;`,
           javascriptEnabled: true
         }
       }
@@ -53,7 +53,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       target: 'es2015',
       cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
-      brotliSize: false,
       chunkSizeWarningLimit: 2000
     },
     define: {
