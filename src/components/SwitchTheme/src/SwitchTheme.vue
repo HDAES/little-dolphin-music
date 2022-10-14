@@ -23,7 +23,7 @@ onMounted(() => {
 /**
  * 切换主题
  */
-const handleThemeChange = (color: string) => {
+const handleThemeChange = (color: string | null): void => {
   if (!color) return
   setPrimary(color)
   el.value.style.setProperty(`--el-color-primary`, color)

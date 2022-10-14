@@ -1,6 +1,7 @@
 import { genMessage } from '../helper'
 
-const modules = import.meta.globEager('./en/**/*.ts')
+const modules: Record<string, Record<string, any>> = import.meta.glob('./en/**/*.ts', { eager: true })
+
 export default {
   message: {
     ...genMessage(modules, 'en')
