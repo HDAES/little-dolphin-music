@@ -3,6 +3,8 @@
  * @Author: Hades
  */
 import type { Plugin } from 'vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
@@ -25,7 +27,12 @@ export function configAutoImportPlugin(): Plugin | Plugin[] {
           ]
         }
       ],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        ElementPlusResolver(), // 自动导入图标组件
+        IconsResolver({
+          prefix: 'Icon'
+        })
+      ],
       dts: 'types/auto-imports.d.ts'
     })
   )
@@ -35,6 +42,10 @@ export function configAutoImportPlugin(): Plugin | Plugin[] {
       resolvers: [
         ElementPlusResolver({
           importStyle: 'sass'
+        }),
+        // 自动注册图标组件
+        IconsResolver({
+          enabledCollections: ['ep']
         })
       ],
       dirs: ['src/components'],
@@ -42,6 +53,12 @@ export function configAutoImportPlugin(): Plugin | Plugin[] {
       directoryAsNamespace: false,
       //指定类型声明文件
       dts: 'types/components.d.ts'
+    })
+  )
+
+  plugins.push(
+    Icons({
+      autoInstall: true
     })
   )
   return plugins

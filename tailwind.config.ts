@@ -17,6 +17,9 @@ export default defineConfig({
       },
       colors: {
         'default-bg': '#DDE2EB'
+      },
+      borderWidth: {
+        1: '1px'
       }
     }
   }
